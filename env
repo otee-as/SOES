@@ -1,0 +1,28 @@
+# SOES Simulated Slave - Environment Configuration
+# Copy to env.local and customize for your target.
+#   cp env env.local
+
+# Build Platform
+# RPi 4 / 5 with 64-bit OS → arm64
+# RPi 3 / 4 with 32-bit Raspberry Pi OS → armv7
+# x86 Linux VM / server → amd64
+PLATFORM=arm64                    # Options: amd64, arm64, armv7 (arm32)
+
+# Remote Target
+# The Linux host where BOTH the vPLC (SOEM master) AND the SOES slave run.
+# Docker Desktop on macOS cannot open AF_PACKET raw sockets, so everything
+# must execute on a real Linux kernel (RPi, VM, bare-metal server).
+REMOTE_HOST=pi@192.168.1.100      # SSH target (user@host or user@ip)
+REMOTE_PASS=                      # SSH password (leave empty to use key-based auth)
+
+# Slave Runtime Configuration
+SLAVE_TYPE=sim_demo               # sim_demo | sim_analog
+WAIT_TIMEOUT=30                   # Seconds to wait for interface before giving up
+
+# SLAVE_IFACE — only used by 'run' / 'full-deploy' (physical hardware bench mode).
+# The sim-* commands always hardwire SLAVE_IFACE=veth-slave on the remote host.
+SLAVE_IFACE=eth0
+
+# Docker Configuration
+IMAGE_NAME=soes-slave
+IMAGE_TAG=latest
